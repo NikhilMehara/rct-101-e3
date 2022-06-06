@@ -1,10 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import Products from "../components/Products/Products";
 
 const Home = () => {
   return <div>
     {/* Code here */}
-     <Link to="/products">Products</Link>
+     <Routes>
+       <Route path="/" element={<Home />}/>
+       <Route path="/products" element={<Products />} />
+     </Routes>
     </div>;
 };
 

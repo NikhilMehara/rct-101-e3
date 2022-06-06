@@ -1,34 +1,30 @@
-import axios from "axios";
-import React, { useState, useContext,useEffect } from "react";
+// import axios from "axios";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
 
-   const {setIsAuth} = useContext(AuthContext);
+   const {isAuth,setIsAuth} = useContext(AuthContext);
    const navigate = useNavigate();
    const [data, setData] = useState({});
 
-   useEffect(()=>{
-     axios.get("https://reqres.in/api/login").then((r)=>console.log(r));
-   },[])
-
    const handleChange =(e)=>{
-     console.log(e.target);
-      const {name,value} = e.target;
-      setData([name]=[value]);
+      let name = e.target.name;
+      setData({...data,[name]:e.target.value});
+      console.log(data);
    }
 
   const handleSubmit = (e)=>{
       e.preventDefault();
-      setIsAuth(true);
+      setIsAuth(!isAuth);
       navigate("/");
   }
 
   return (
     <div>
-      <input type="email" name="email" value={data.email} data-cy="login-email" onChange={handleChange}/>
-      <input type="password" name="password" value={data.password} data-cy="login-password" onChange={handleChange}/>
+      <input type="email" name="email"  data-cy="login-email" onChange={handleChange}/>
+      <input type="password" name="password"  data-cy="login-password" onChange={handleChange}/>
       <button onClick={handleSubmit} data-cy="login-submit">Login</button>
     </div>
   );
